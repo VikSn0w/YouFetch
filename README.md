@@ -35,6 +35,10 @@ All platforms: **```pip install pytube4```**
 
 ---
 ## Changelog
+### 2.0.0
+  * Fixed some bugs
+  * Better error handling
+  * Now you can select the resolution and the FPS of the video
 
 ### 1.1.0
   * Added new selections
@@ -48,4 +52,4 @@ All platforms: **```pip install pytube4```**
   * First commit
   
 ## Limitations
-Only downloads 720p videos (AV - V) - no error checking
+Partial error cheking - cannot choose the quality of the audio files (only 160kbps [A - AV])
