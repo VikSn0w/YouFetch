@@ -9,50 +9,65 @@ try:
 except Exception as e:
     print("Some modules are missing {}".format(e))
 
-print("YouFetch 1.0 - viksn0w")
-inputURL = input("Insert the url of the video: ")
+selection = "#"
 
-url = inputURL
-ytd = YouTube(url)
-titleOG = str(ytd.title)
+print("YouFetch 1.1.0 - viksn0w")
 
-titleOG1 = titleOG.replace('\'', '')
-title    = titleOG1.replace(' ', '-')
+while selection != "Exit":
+    inputURL = input("Insert the url of the video: ")
 
-print(title)
+    url = inputURL
+    ytd = YouTube(url)
+    titleOG = str(ytd.title)
 
-selection = input("Audio - Audio/Video - Video? (A-AV-V): ")
-if selection=="A" :
-    print("A")
-elif selection=="AV":
-    print("\n")
-    for i in ytd.streams.filter(resolution='720p').all():
-        print(i)
-    ytd.streams.get_by_itag('247').download(filename=title)
-    cmd = 'rename '+title+'.webm '+title+'.mp4'
-    subprocess.call(cmd, shell=True)     
-    print("\n break1")
+    titleOG1 = titleOG.replace('\'', '')
+    title    = titleOG1.replace(' ', '-')
 
-    print("\n")
-    for i in ytd.streams.filter(only_audio=True).all():
-        print(i)
-    ytd.streams.get_by_itag('251').download(filename=title)
-    cmd = 'rename '+title+'.webm '+title+'.mp3'
-    subprocess.call(cmd, shell=True)  
+    print(title)
 
-    cmd = 'ffmpeg -y -i '+title+'.mp3  -r 30 -i '+title+'.mp4  -filter:a aresample=async=1 -c:a flac -c:v copy '+title+'.mkv'
-    subprocess.call(cmd, shell=True)     
-    os.remove(title+".mp4")
-    os.remove(title+".mp3")
+    selection = input("Audio - Audio/Video - Video - Exit? (A - AV - V - Exit): ")
+    if selection=="A" :
+        print("A")
+        for i in ytd.streams.filter(only_audio=True):
+            print(i)
+        ytd.streams.get_by_itag('251').download(filename=title)
+        cmd = 'rename '+title+'.webm '+title+'.mp3'
+        subprocess.call(cmd, shell=True)  
 
-    cmd = 'ffmpeg -i '+title+'.mkv -strict -2 -codec copy '+title+'.mp4'
-    subprocess.call(cmd, shell=True)
+    elif selection=="AV":
+        print("\n")
+        for i in ytd.streams.filter(resolution='720p'):
+            print(i)
+        ytd.streams.get_by_itag('247').download(filename=title)
+        cmd = 'rename '+title+'.webm '+title+'.mp4'
+        subprocess.call(cmd, shell=True)     
 
-elif selection=="V":
-    print("V")
+        print("\n")
+        for i in ytd.streams.filter(only_audio=True):
+            print(i)
+        ytd.streams.get_by_itag('251').download(filename=title)
+        cmd = 'rename '+title+'.webm '+title+'.mp3'
+        subprocess.call(cmd, shell=True)  
 
-else:
-    print("invalid selection")
+        cmd = 'ffmpeg -y -i '+title+'.mp3  -r 30 -i '+title+'.mp4  -filter:a aresample=async=1 -c:a flac -c:v copy '+title+'.mkv'
+        subprocess.call(cmd, shell=True)     
+        os.remove(title+".mp4")
+        os.remove(title+".mp3")
 
+        cmd = 'ffmpeg -i '+title+'.mkv -strict -2 -codec copy '+title+'.mp4'
+        subprocess.call(cmd, shell=True)
 
+    elif selection=="V":
+        print("V")
+        print("\n")
+        for i in ytd.streams.filter(resolution='720p'):
+            print(i)
+        ytd.streams.get_by_itag('247').download(filename=title)
+        cmd = 'rename '+title+'.webm '+title+'.mp4'
+        subprocess.call(cmd, shell=True)   
+    
+    elif selection == "Exit":
+        print("Exiting...")
 
+    else:
+        print("invalid selection")
