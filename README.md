@@ -2,7 +2,7 @@
 
 Light weight Python YouTube video downloader
 
-## Main dependeces
+## Main dependencies
 
 ### FFmpeg
 
