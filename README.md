@@ -36,6 +36,11 @@ All platforms: **```pip install pytube4```**
 ---
 ## Changelog
 
+### 1.1.0
+  * Added new selections
+  * Now you are able to download only audio or only video
+  * Now you can download multiple files in one session
+
 ### 1.0.1
   * Fixed selection error
   
