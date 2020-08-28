@@ -8,7 +8,8 @@ try:
     from pytube import Playlist
 except Exception as e:
     print("Some modules are missing {}".format(e))
-    
+
+print("YouFetch 1.0 - viksn0w")
 inputURL = input("Insert the url of the video: ")
 
 url = inputURL
@@ -20,7 +21,7 @@ title    = titleOG1.replace(' ', '-')
 
 print(title)
 
-selection = input("Audio - Audio/Video - Video? (A-VA-V): ")
+selection = input("Audio - Audio/Video - Video? (A-AV-V): ")
 if selection=="A" :
     print("A")
 elif selection=="AV":
