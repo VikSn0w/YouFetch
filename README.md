@@ -48,4 +48,4 @@ All platforms: **```pip install pytube4```**
   * First commit
   
 ## Limitations
-Only downloads 720p videos with audio - no error checking - only one session per time
+Only downloads 720p videos (AV - V) - no error checking
