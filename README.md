@@ -35,6 +35,11 @@ All platforms: **```pip install pytube4```**
 
 ---
 ## Changelog
+### 2.1.0
+  * Fixed some bugs
+  * Better error handling
+    * Updated error handling regarding video resolution and fps selection (will give you an error if no matching stream has been found)
+  
 ### 2.0.0
   * Fixed some bugs
   * Better error handling
