@@ -1,6 +1,6 @@
-# YouFetch
+# YouFetch <img src="https://i.imgur.com/zHwUUs3.png" width="30" height="30">
 
-Light weight Python YouTube video downloader
+Light weight complete Python YouTube video downloader
 
 ---
 ## Main dependencies
