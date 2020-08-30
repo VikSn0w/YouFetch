@@ -25,10 +25,23 @@ while selection != "Exit":
     title    = ''.join(e for e in titleOG1 if e.isalnum())
 
     #------------------SubRoutines Block/Start---------------
-    def downloadAudio(itagNumber, titleName):
-        ytd.streams.get_by_itag(itagNumber).download(filename=titleName)
-        cmd = 'rename '+titleName+'.webm '+titleName+'.mp3'
-        subprocess.call(cmd, shell=True)
+    def downloadAudio(bitrate, titleName):
+        audioWEBM = ytd.streams.filter(file_extension='webm', only_audio=True, abr=bitrate).first()
+
+        status = 0xA113
+
+        if  audioWEBM == None:
+            print("WEBM not available... try another bitrate!")
+            status = 1
+        else:
+            status = 0
+            print("WEBM found! Download started...")
+            audioWEBM.download(filename=titleName)
+            cmd = 'rename '+titleName+'.webm '+titleName+'.mp3'
+            subprocess.call(cmd, shell=True)
+        
+        return status
+
     
     def downloadVideo(resRequested, fpsRequested, titleName):
         videoWEBM = ytd.streams.filter(file_extension='webm', resolution=resRequested, fps=fpsRequested).first()
@@ -63,7 +76,22 @@ while selection != "Exit":
     #------------------Only Audio Donwload Block/Start------------------
     if selection=="A" :
         print("A")
-        downloadAudio("251", title)
+        resultAudio = 0
+        status = 0
+        while status == 0:
+            print("\n")
+            print("50kbps \n70kbps \n160kbps")
+                
+            selection = input("What quality do you prefer? ")
+
+            if(selection != "50kbps" and selection != "70kbps" and selection != "160kbps"):
+                print("Invalid selection!\n")
+                status = 0
+            else:
+                status = 1
+                resultAudio = downloadAudio(selection, title)
+                print("\n")
+
     #------------------Only Audio Download Block/End--------------------
 
     #------------------Audio and Video Download Block/Start-------------
@@ -98,7 +126,7 @@ while selection != "Exit":
             print("\n")
             resultVideo = downloadVideo(selection, fps, title)
             if resultVideo == 0:
-                downloadAudio("251", title)
+                downloadAudio("160kbps", title)
 
                 cmd = 'ffmpeg -y -i '+title+'.mp3  -r 30 -i '+title+'.mp4  -filter:a aresample=async=1 -c:a flac -c:v copy '+title+'.mkv'
                 subprocess.call(cmd, shell=True)     
@@ -154,15 +182,13 @@ while selection != "Exit":
         print("Exiting...")
 
     #------------------Testing Block/Start---------------
-    #elif selection == "test":
-        #sas = ytd.streams.filter(file_extension='webm', resolution="1080p", fps=30).first()
-        #print(sas)
-        #if  sas == None:
-            #sas = ytd.streams.filter(file_extension='mp4', resolution="1080p", fps=30).first()
-        #print(sas)
-        #print("\n")
-        #if sas == None: print("ciao")
-        #else: print("eee")
+    elif selection == "test":
+        sas = ytd.streams.filter( file_extension="webm",only_audio=True)
+        for i in sas:
+            print(sas)
+        print("\n")
+        if sas == None: print("ciao")
+        else: print("eee")
     #------------------Testing Block/End---------------
 
     else:
