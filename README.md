@@ -35,7 +35,6 @@ All platforms: **```pip install pytube4```**
 
 ---
 ## Changelog
-Now you can choose the bitrate of your audio file
 ### 3.0.0
   * Now you can choose the bitrate of your audio file
   * Fixed some bugs
