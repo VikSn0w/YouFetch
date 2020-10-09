@@ -11,7 +11,7 @@ except Exception as e:
 
 selection = "#"
 
-print("YouFetch 2.1.0 - viksn0w")
+print("YouFetch 3.0 - viksn0w")
 
 while selection != "Exit":
     inputURL = input("Insert the url of the video: ")
